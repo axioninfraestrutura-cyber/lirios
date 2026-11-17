@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lírios para Gabriela</title>
+<meta name="theme-color" content="#6e4329">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Special+Elite&family=Homemade+Apple&family=Rye&display=swap">
+<style>
+/* Layout: uma coluna estreita de celular, como um perfil antigo — envelope de abertura, gato, destaques, carta datilografada, jardim. */
+:root{
+  --paper:#f1e4cb;      /* papel envelhecido */
+  --paper-2:#e6d3b0;
+  --cocoa:#6e4329;      /* xadrez marrom da loja */
+  --ink:#3a2316;
+  --rose:#c4807d;       /* rosa seco do lacinho */
+  --olive:#6f7a3c;
+  --mustard:#c99a3a;
+  --lily:#fbf5ec;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-type:"Special Elite", "Courier New", Courier, monospace;
+  --f-hand:"Homemade Apple", "Segoe Script", cursive;
+  --f-mono:"Rye", Georgia, serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img,svg{max-width:100%}
+[hidden]{display:none!important}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-display);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+.gingham{
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(110,67,41,.38) 0 14px, transparent 14px 28px),
+    repeating-linear-gradient(90deg, rgba(110,67,41,.38) 0 14px, transparent 14px 28px);
+}
+.grain::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.22;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .12 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- Envelope ---------- */
+#intro{
+  position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  transition:opacity .9s ease, visibility .9s;
+}
+#intro.gone{opacity:0;visibility:hidden}
+.intro-label{
+  font-family:var(--f-type);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--paper);padding:6px 14px;border:1.5px dashed var(--cocoa);color:var(--cocoa);
+}
+.envelope{
+  position:relative;width:min(330px, 88vw);aspect-ratio:1.45;max-width:100%;
+  perspective:900px;
+}
+.env-back,.env-front{position:absolute;inset:0;border-radius:4px}
+.env-back{background:var(--paper-2);box-shadow:0 18px 40px rgba(58,35,22,.35)}
+.env-letter{
+  position:absolute;left:7%;right:7%;top:8%;height:84%;background:var(--lily);
+  border:1px solid rgba(110,67,41,.25);transition:transform 1s cubic-bezier(.5,0,.2,1) .55s;
+  display:flex;align-items:flex-start;justify-content:center;padding-top:10%;
+  font-family:var(--f-hand);font-size:13px;color:var(--cocoa);
+}
+.env-front{
+  background:
+    linear-gradient(to top right, var(--paper) 49.6%, transparent 50%) left/50% 100% no-repeat,
+    linear-gradient(to top left, var(--paper) 49.6%, transparent 50%) right/50% 100% no-repeat;
+  filter:drop-shadow(0 -1px 0 rgba(110,67,41,.15));
+}
+.env-to{
+  position:absolute;left:0;right:0;bottom:12%;text-align:center;font-family:var(--f-hand);font-size:clamp(15px,4.6vw,19px);color:var(--ink);
+}
+.env-flap{
+  position:absolute;left:0;right:0;top:0;height:58%;transform-origin:top center;
+  background:#ead9b9;clip-path:polygon(0 0,100% 0,50% 100%);
+  transition:transform .8s cubic-bezier(.6,0,.3,1);z-index:3;
+}
+.stamp{
+  position:absolute;right:6%;top:-6%;width:62px;height:74px;z-index:4;background:var(--lily);padding:5px;
+  transform:rotate(6deg);
+  mask:radial-gradient(circle 3px at 3px 3px, transparent 98%, #000) -3px -3px/7px 7px;
+  -webkit-mask:radial-gradient(circle 3px at 3px 3px, transparent 98%, #000) -3px -3px/7px 7px;
+}
+.stamp-in{width:100%;height:100%;background:var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--lily);font-family:var(--f-type);font-size:8px;letter-spacing:.08em}
+.postmark{
+  position:absolute;left:5%;top:6%;z-index:4;width:78px;height:78px;border-radius:50%;
+  border:2px solid rgba(58,35,22,.45);display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--f-type);font-size:9px;line-height:1.3;color:rgba(58,35,22,.6);transform:rotate(-14deg);
+}
+.seal{
+  position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);z-index:5;
+  width:68px;height:68px;border-radius:50%;border:0;cursor:pointer;
+  background:radial-gradient(circle at 35% 30%, #d99591, var(--rose) 45%, #9c5552);
+  box-shadow:0 4px 0 #8a4744, 0 8px 16px rgba(58,35,22,.4), inset 0 0 0 5px rgba(255,255,255,.12);
+  font-family:var(--f-mono);font-size:30px;color:#fbe9e2;
+  animation:pulse 2.2s ease-in-out infinite;transition:transform .4s, opacity .4s;
+}
+.seal:focus-visible{outline:3px dashed var(--ink);outline-offset:6px}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.07)}}
+.intro-hint{font-family:var(--f-display);font-style:italic;font-size:15px;background:var(--paper);padding:4px 12px;border-radius:2px;color:var(--ink)}
+.opening .env-flap{transform:rotateX(180deg);z-index:1}
+.opening .seal{opacity:0;transform:translate(-50%,-50%) scale(.4);animation:none}
+.opening .env-letter{transform:translateY(-62%)}
+
+/* ---------- Página ---------- */
+main{
+  max-width:460px;margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:28px 56px;
+  display:flex;flex-direction:column;gap:34px;
+}
+
+/* abertura */
+.hero{display:flex;flex-direction:column;gap:6px;padding-top:30px}
+.kicker{font-family:var(--f-type);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cocoa)}
+h1{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(44px,13vw,60px);line-height:1.05;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--cocoa)}
+h1 .mono{font-family:var(--f-mono);font-style:normal;font-size:.8em;background:#d8c09a;color:var(--cocoa);padding:0 .12em;border:2px dashed rgba(110,67,41,.55);display:inline-block}
+.hero p{margin:6px 0 0;font-style:italic;font-size:17px}
+.ribbon{height:16px;margin-top:14px;border-block:2px solid var(--cocoa)}
+
+/* bilhetinhos */
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.note{perspective:800px;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit;aspect-ratio:1/1.15;max-width:100%}
+.note-in{display:block;position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.note.flip .note-in{transform:rotateY(180deg)}
+.note-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--ink);border-radius:2px;display:flex;align-items:center;justify-content:center;padding:12px;box-shadow:4px 4px 0 var(--cocoa)}
+.note-face.back{transform:rotateY(180deg);background:var(--lily);font-style:italic;font-size:15px;line-height:1.4;text-align:left;flex-direction:column;align-items:flex-start;gap:8px}
+.note-face.back small{font-family:var(--f-type);font-style:normal;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cocoa)}
+.note-tag{background:var(--lily);border:1.5px solid var(--ink);padding:4px 10px;font-family:var(--f-type);font-size:12.5px;letter-spacing:.1em}
+.note:focus-visible .note-in{outline:2px dashed var(--ink);outline-offset:4px}
+.notes-hint{margin:10px 0 0;font-size:14px;font-style:italic;color:var(--cocoa)}
+.dots{background:var(--cocoa);background-image:radial-gradient(var(--paper) 1.6px, transparent 2px);background-size:11px 11px}
+.dots-light{background:var(--lily);background-image:radial-gradient(var(--ink) 1.4px, transparent 1.8px);background-size:11px 11px}
+.check{background-color:#d9c6a2;background-image:repeating-linear-gradient(0deg, rgba(110,67,41,.45) 0 8px, transparent 8px 16px),repeating-linear-gradient(90deg, rgba(110,67,41,.45) 0 8px, transparent 8px 16px)}
+.solid-rose{background:var(--rose)}
+
+/* gato */
+.cat-card{
+  position:relative;border:2px solid var(--cocoa);border-radius:3px;
+  background:var(--lily);padding:22px 14px 14px;
+  box-shadow:6px 6px 0 var(--cocoa);
+}
+.cat-card .tag{
+  position:absolute;top:-14px;left:16px;background:var(--mustard);color:var(--ink);
+  font-family:var(--f-type);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1.5px solid var(--ink);
+}
+.cat-wrap{position:relative;display:flex;justify-content:center}
+.cat{width:min(300px,100%);height:auto;cursor:pointer;touch-action:manipulation;overflow:visible}
+.cat:focus-visible{outline:2px dashed var(--ink);outline-offset:4px}
+.cat .tail{transform-origin:212px 300px;animation:tail 3.2s ease-in-out infinite}
+@keyframes tail{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+.cat .eyes{transform-origin:150px 126px;animation:blink 4.6s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+.cat .ear-l{transform-origin:110px 90px;animation:earL 7s infinite}
+@keyframes earL{0%,88%,100%{transform:rotate(0)}91%{transform:rotate(-10deg)}94%{transform:rotate(0)}}
+.cat.hop{animation:hop .55s cubic-bezier(.3,1.6,.5,1)}
+@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-14px) rotate(-2deg)}100%{transform:translateY(0)}}
+.bubble{
+  position:absolute;top:2px;right:2%;max-width:62%;background:var(--paper);border:2px solid var(--ink);border-radius:18px;
+  padding:8px 12px;font-family:var(--f-hand);font-size:12.5px;line-height:1.6;color:var(--ink);
+  transform:scale(.6);opacity:0;transform-origin:bottom left;transition:transform .35s cubic-bezier(.3,1.6,.5,1), opacity .25s;pointer-events:none;
+}
+.bubble::after{content:"";position:absolute;left:14px;bottom:-11px;width:16px;height:16px;background:var(--paper);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) skew(10deg,10deg)}
+.bubble.show{transform:scale(1);opacity:1}
+.cat-caption{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:13.5px;margin-top:6px;border-top:1px dashed rgba(110,67,41,.4);padding-top:10px}
+.cat-caption i{color:var(--cocoa)}
+.pets{font-family:var(--f-type);font-size:12px;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+
+/* carta */
+.letter{
+  position:relative;background:var(--lily);
+  background-image:repeating-linear-gradient(to bottom, transparent 0 31px, rgba(196,128,125,.28) 31px 32px);
+  background-position:0 54px;
+  padding:56px 22px 34px 34px;border-radius:2px;
+  box-shadow:0 1px 0 rgba(58,35,22,.08), 0 14px 30px rgba(58,35,22,.18);
+  transform:rotate(-.6deg);
+}
+.letter::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:1px;background:rgba(196,128,125,.55)}
+.letter .date{position:absolute;top:18px;right:20px;font-family:var(--f-type);font-size:12px;color:var(--cocoa);letter-spacing:.06em}
+.letter p{margin:0 0 0;font-family:var(--f-type);font-size:15.5px;line-height:32px;color:var(--ink)}
+.letter p + p{margin-top:32px}
+.letter .open{font-family:var(--f-hand);font-size:17px;line-height:32px}
+.letter .lead{font-family:var(--f-display);font-style:italic;font-size:21px;line-height:32px;color:var(--cocoa)}
+.letter .sign{font-family:var(--f-hand);font-size:15px;line-height:32px;text-align:right;color:var(--cocoa)}
+.letter .pressed{position:absolute;right:-8px;bottom:-18px;width:86px;transform:rotate(-24deg);opacity:.9;pointer-events:none}
+.play .letter p{animation:ink .9s ease both}
+@keyframes ink{from{opacity:0;filter:blur(3px);transform:translateY(6px)}to{opacity:1;filter:none;transform:none}}
+
+/* jardim */
+.garden-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2{font-family:var(--f-display);font-weight:400;font-style:italic;font-size:24px;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.count{font-family:var(--f-type);font-size:12.5px;color:var(--cocoa);font-variant-numeric:tabular-nums}
+.garden{
+  position:relative;height:230px;margin-top:12px;border:2px solid var(--cocoa);border-radius:3px;overflow:hidden;cursor:pointer;touch-action:manipulation;
+  background:
+    linear-gradient(to bottom, transparent 70%, rgba(111,122,60,.55) 70%),
+    linear-gradient(to bottom, #f3dfb8, #ead2a6);
+}
+.garden:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+.garden .sun{position:absolute;right:22px;top:18px;width:46px;height:46px;border-radius:50%;background:var(--mustard);opacity:.75}
+.garden-hint{position:absolute;left:12px;top:10px;font-family:var(--f-type);font-size:12px;color:var(--cocoa);letter-spacing:.04em;pointer-events:none}
+.sprout{position:absolute;bottom:0;transform-origin:bottom center;animation:grow 1.2s cubic-bezier(.2,.9,.3,1.2) both;pointer-events:none}
+@keyframes grow{from{transform:scaleY(0) scaleX(.6)}to{transform:none}}
+.garden-msg{margin:12px 0 0;font-style:italic;font-size:15px;color:var(--cocoa);min-height:1.5em}
+
+footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cocoa);display:flex;flex-direction:column;gap:10px;align-items:center}
+.again{background:none;border:1.5px solid var(--cocoa);color:var(--cocoa);font:inherit;letter-spacing:.12em;padding:8px 14px;cursor:pointer;border-radius:2px}
+.again:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+
+/* rádio */
+.radio{
+  position:fixed;z-index:30;
+  top:calc(12px + env(safe-area-inset-top, 0px));right:calc(12px + env(safe-area-inset-right, 0px));
+  display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;cursor:pointer;
+  background:var(--ink);color:var(--paper);border:0;font-family:var(--f-type);font-size:12px;letter-spacing:.08em;
+  box-shadow:0 6px 16px rgba(58,35,22,.3);
+}
+.radio:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+.radio .bars{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.radio .bars i{width:3px;height:4px;background:var(--mustard);border-radius:1px}
+.radio.on .bars i{animation:eq .8s ease-in-out infinite}
+.radio.on .bars i:nth-child(2){animation-delay:.2s}
+.radio.on .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:3px}50%{height:12px}}
+
+#fx{position:fixed;inset:0;pointer-events:none;z-index:46;width:100%;height:100%}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body class="grain">
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- ENVELOPE -->
+<div id="intro" class="gingham" role="dialog" aria-label="Carta fechada">
+  <div class="intro-label">Correio Nostálgico · nº 001</div>
+  <div class="envelope" id="env">
+    <div class="env-back"></div>
+    <div class="env-letter">abre devagar…</div>
+    <div class="env-front"></div>
+    <div class="env-flap"></div>
+    <div class="postmark">MANAUS<br>· 2026 ·<br>sem pressa</div>
+    <div class="stamp"><div class="stamp-in">
+      <svg width="30" height="30" viewBox="-44 -44 88 88" aria-hidden="true"><use href="#lily"/></svg>
+      LÍRIO
+    </div></div>
+    <div class="env-to">para: Gabriela</div>
+    <button class="seal" id="seal" aria-label="Abrir a carta">G</button>
+  </div>
+  <div class="intro-hint">toque no selo para abrir</div>
+</div>
+
+<button class="radio" id="radio" aria-pressed="false"><span class="bars"><i></i><i></i><i></i></span><span id="radioLabel">rádio</span></button>
+
+<main id="page">
+
+  <header class="hero">
+    <span class="kicker">Correio Nostálgico · entrega nº 001</span>
+    <h1>Para <span class="mono">G</span><em>abriela</em></h1>
+    <p>um gato, alguns lírios e uma carta. tudo sem pressa.</p>
+    <div class="ribbon gingham" aria-hidden="true"></div>
+  </header>
+
+  <!-- GATO -->
+  <section class="cat-card" aria-label="Um gato com lírios">
+    <span class="tag">entrega especial</span>
+    <div class="cat-wrap">
+      <div class="bubble" id="bubble">miau! são pra você</div>
+      <svg class="cat" id="cat" viewBox="0 0 300 350" role="button" tabindex="0" aria-label="Gato segurando lírios. Toque para fazer carinho.">
+        <defs>
+          <path id="petal" d="M0 0 C11 -8 12 -25 0 -41 C-12 -25 -11 -8 0 0Z"/>
+          <g id="lily">
+            <g fill="#fbf5ec" stroke="#cf9a95" stroke-width="1.4">
+              <use href="#petal"/><use href="#petal" transform="rotate(60)"/><use href="#petal" transform="rotate(120)"/>
+              <use href="#petal" transform="rotate(180)"/><use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g stroke="#e3a9a3" stroke-width="2" stroke-linecap="round" fill="none">
+              <path d="M0 -6 V-28"/><path d="M0 -6 V-28" transform="rotate(60)"/><path d="M0 -6 V-28" transform="rotate(120)"/>
+              <path d="M0 -6 V-28" transform="rotate(180)"/><path d="M0 -6 V-28" transform="rotate(240)"/><path d="M0 -6 V-28" transform="rotate(300)"/>
+            </g>
+            <g stroke="#8a6a2e" stroke-width="1.2">
+              <line x1="0" y1="0" x2="-9" y2="-14"/><line x1="0" y1="0" x2="9" y2="-14"/><line x1="0" y1="0" x2="0" y2="-17"/>
+              <line x1="0" y1="0" x2="-14" y2="-4"/><line x1="0" y1="0" x2="14" y2="-4"/>
+            </g>
+            <g fill="#8a4a2a">
+              <ellipse cx="-9" cy="-14" rx="2" ry="3.2"/><ellipse cx="9" cy="-14" rx="2" ry="3.2"/><ellipse cx="0" cy="-17" rx="2" ry="3.2"/>
+              <ellipse cx="-14" cy="-4" rx="3.2" ry="2"/><ellipse cx="14" cy="-4" rx="3.2" ry="2"/>
+            </g>
+            <circle r="3.5" fill="#c99a3a"/>
+          </g>
+          <pattern id="gg" width="12" height="12" patternUnits="userSpaceOnUse">
+            <rect width="12" height="12" fill="#e7d4b0"/>
+            <rect width="6" height="12" fill="rgba(110,67,41,.42)"/>
+            <rect width="12" height="6" fill="rgba(110,67,41,.42)"/>
+          </pattern>
+        </defs>
+
+        <!-- cauda -->
+        <path class="tail" d="M206 300 C272 304 292 240 266 204 C258 193 244 198 250 211 C268 244 258 286 204 284 Z" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
+        <!-- corpo -->
+        <ellipse cx="150" cy="262" rx="82" ry="78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
+        <path d="M80 240 q14 4 18 16 M76 270 q14 2 20 12 M220 240 q-14 4 -18 16 M224 270 q-14 2 -20 12" stroke="#b06d3c" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="150" cy="278" rx="50" ry="58" fill="#f3dcc0"/>
+        <ellipse cx="112" cy="332" rx="24" ry="13" fill="#f3dcc0" stroke="#8a5530" stroke-width="2.5"/>
+        <ellipse cx="188" cy="332" rx="24" ry="13" fill="#f3dcc0" stroke="#8a5530" stroke-width="2.5"/>
+
+        <!-- orelhas -->
+        <g class="ear-l">
+          <polygon points="88,102 80,36 130,78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5" stroke-linejoin="round"/>
+          <polygon points="95,92 88,52 119,79" fill="#e6a7a1"/>
+        </g>
+        <polygon points="212,102 220,36 170,78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5" stroke-linejoin="round"/>
+        <polygon points="205,92 212,52 181,79" fill="#e6a7a1"/>
+        <!-- cabeça -->
+        <ellipse cx="150" cy="128" rx="74" ry="62" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
+        <path d="M150 70 v15 M136 73 l3 13 M164 73 l-3 13" stroke="#b06d3c" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="150" cy="152" rx="34" ry="24" fill="#f3dcc0"/>
+        <g class="eyes">
+          <ellipse cx="122" cy="126" rx="8.5" ry="11.5" fill="#2e1b10"/>
+          <ellipse cx="178" cy="126" rx="8.5" ry="11.5" fill="#2e1b10"/>
+          <circle cx="125" cy="121" r="3" fill="#fff"/><circle cx="181" cy="121" r="3" fill="#fff"/>
+        </g>
+        <ellipse cx="104" cy="148" rx="11" ry="6.5" fill="#c4807d" opacity=".5"/>
+        <ellipse cx="196" cy="148" rx="11" ry="6.5" fill="#c4807d" opacity=".5"/>
+        <path d="M144 142 h12 l-6 7 z" fill="#c4807d" stroke="#8a4744" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M150 149 q-6 9 -14 4 M150 149 q6 9 14 4" stroke="#5a3520" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <g stroke="#5a3520" stroke-width="1.4" stroke-linecap="round" opacity=".7">
+          <line x1="112" y1="150" x2="68" y2="142"/><line x1="112" y1="156" x2="70" y2="160"/>
+          <line x1="188" y1="150" x2="232" y2="142"/><line x1="188" y1="156" x2="230" y2="160"/>
+        </g>
+
+        <!-- buquê -->
+        <g stroke="#6f7a3c" stroke-width="3" stroke-linecap="round">
+          <line x1="150" y1="300" x2="120" y2="215"/><line x1="150" y1="300" x2="150" y2="200"/><line x1="150" y1="300" x2="180" y2="215"/>
+          <line x1="150" y1="300" x2="134" y2="242"/><line x1="150" y1="300" x2="166" y2="242"/>
+        </g>
+        <path d="M0 0 C10 -11 30 -11 42 0 C30 11 10 11 0 0Z" fill="#7d8a45" stroke="#56602c" stroke-width="1.5" transform="translate(132 252) rotate(-150)"/>
+        <path d="M0 0 C10 -11 30 -11 42 0 C30 11 10 11 0 0Z" fill="#7d8a45" stroke="#56602c" stroke-width="1.5" transform="translate(168 252) rotate(-30)"/>
+        <polygon points="110,246 190,246 160,322 140,322" fill="url(#gg)" stroke="#6e4329" stroke-width="2.5" stroke-linejoin="round"/>
+        <use href="#lily" transform="translate(120 215) scale(.7) rotate(-12)"/>
+        <use href="#lily" transform="translate(180 215) scale(.7) rotate(14)"/>
+        <use href="#lily" transform="translate(150 200) scale(.82)"/>
+        <use href="#lily" transform="translate(134 242) scale(.56) rotate(20)"/>
+        <use href="#lily" transform="translate(166 242) scale(.56) rotate(-20)"/>
+        <!-- patinhas -->
+        <ellipse cx="121" cy="272" rx="16" ry="12.5" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
+        <ellipse cx="179" cy="272" rx="16" ry="12.5" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
+        <path d="M116 266 v8 M123 265 v8 M174 266 v8 M181 265 v8" stroke="#8a5530" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- laço -->
+        <g transform="translate(150 296)">
+          <path d="M0 0 L-20 -10 L-18 10 Z M0 0 L20 -10 L18 10 Z" fill="#c4807d" stroke="#8a4744" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M-3 2 L-10 22 M3 2 L10 22" stroke="#c4807d" stroke-width="4" stroke-linecap="round"/>
+          <circle r="5" fill="#b56e6b" stroke="#8a4744" stroke-width="1.8"/>
+        </g>
+      </svg>
+    </div>
+    <div class="cat-caption"><i>toque no gatinho</i><span class="pets" id="pets">carinhos: 0</span></div>
+  </section>
+
+  <!-- CARTA -->
+  <article class="letter" aria-label="Carta">
+    <span class="date">Manaus, nov. 2026</span>
+    <p class="open">Gabriela,</p>
+    <p class="lead">Você me lembra lírios…<br>Na cor, na calma, no jeito de florir sem pressa.</p>
+    <p>Faz pouco tempo que eu te conheço, mas tem gente que chega assim, sem fazer barulho, e de repente os dias ficam com cara de filme antigo: luz amarelada, música de rádio tocando baixinho.</p>
+    <p>Gosto do jeito que você enxerga beleza no que o tempo quase esqueceu. Talvez por isso eu tenha pensado em você quando vi um lírio, e quis te entregar alguns. Mandei por um gatinho, que é mais corajoso do que eu.</p>
+    <p>Sem pressa nenhuma. Só queria que você soubesse que eu te acho encantadora.</p>
+    <p class="sign">com carinho, de quem gosta<br>de te ver florir ♡</p>
+    <svg class="pressed" viewBox="-60 -60 120 160" aria-hidden="true">
+      <path d="M0 10 C4 50 -4 80 2 98" stroke="#6f7a3c" stroke-width="3" fill="none" opacity=".75"/>
+      <g opacity=".85"><use href="#lily" transform="scale(1.1)"/></g>
+    </svg>
+  </article>
+
+  <!-- BILHETINHOS -->
+  <section aria-label="Bilhetinhos">
+    <h2>Bilhetinhos</h2>
+    <div class="notes">
+      <button class="note" aria-label="Bilhete: a cor"><span class="note-in"><span class="note-face dots"><span class="note-tag">a cor</span></span><span class="note-face back">Lírio tem essa cor de quem não precisa chamar atenção pra ser notada.<small>bilhete 1</small></span></span></button>
+      <button class="note" aria-label="Bilhete: a calma"><span class="note-in"><span class="note-face check"><span class="note-tag">a calma</span></span><span class="note-face back">Conversar com você tem o ritmo de uma tarde de domingo com o rádio ligado.<small>bilhete 2</small></span></span></button>
+      <button class="note" aria-label="Bilhete: sem pressa"><span class="note-in"><span class="note-face solid-rose"><svg width="64" height="64" viewBox="-44 -44 88 88" aria-hidden="true"><use href="#lily"/></svg></span><span class="note-face back">Lírios abrem no tempo deles. Gosto de te conhecer assim, um pouquinho por dia.<small>bilhete 3</small></span></span></button>
+      <button class="note" aria-label="Bilhete: atemporal"><span class="note-in"><span class="note-face dots-light"><span class="note-tag">atemporal</span></span><span class="note-face back">Você tem olho pro que é bonito e não sai de moda. Acho que peguei um pouco disso.<small>bilhete 4</small></span></span></button>
+    </div>
+    <p class="notes-hint">toque para virar cada um</p>
+  </section>
+
+  <!-- JARDIM -->
+  <section aria-label="Jardim">
+    <div class="garden-head">
+      <h2>Um jardim sem pressa</h2>
+      <span class="count" id="count">lírios: 3</span>
+    </div>
+    <div class="garden" id="garden" tabindex="0" role="button" aria-label="Jardim. Toque para plantar um lírio.">
+      <div class="sun"></div>
+      <span class="garden-hint">toque para plantar um lírio</span>
+    </div>
+    <p class="garden-msg" id="gmsg">Cada toque, uma flor nova.</p>
+  </section>
+
+  <footer>
+    <span>feito sem pressa · para Gabriela</span>
+    <button class="again" id="again">fechar a carta de novo</button>
+  </footer>
+</main>
+
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- pétalas (canvas) ---------- */
+  const cv = document.getElementById('fx'), ctx = cv.getContext('2d');
+  let W=0,H=0,dpr=1, parts=[], running=false;
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  size(); addEventListener('resize', size);
+  function add(x,y,burst){
+    const heart = Math.random()<.28;
+    parts.push({x,y,
+      vx: burst ? (Math.random()-.5)*6 : (Math.random()-.5)*.6,
+      vy: burst ? -Math.random()*6-2 : Math.random()*.6+.4,
+      r: Math.random()*Math.PI*2, vr:(Math.random()-.5)*.08,
+      s: Math.random()*5+6, heart, t:0, sw:Math.random()*Math.PI*2,
+      c: heart ? '#c4807d' : (Math.random()<.5 ? '#fbf5ec' : '#f2d2cc')});
+    if(!running){running=true;requestAnimationFrame(tick)}
+  }
+  function drawHeart(s){ctx.beginPath();ctx.moveTo(0,s*.35);ctx.bezierCurveTo(-s,-s*.35,-s*.45,-s,0,-s*.4);ctx.bezierCurveTo(s*.45,-s,s,-s*.35,0,s*.35);ctx.fill()}
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    parts = parts.filter(p=>p.y<H+30 && p.t<900);
+    for(const p of parts){
+      p.t++; p.sw+=.03;
+      p.vy = Math.min(p.vy+.06, 1.6); p.vx*=.98;
+      p.x += p.vx + Math.sin(p.sw)*.5; p.y += p.vy; p.r += p.vr;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;
+      if(p.heart){drawHeart(p.s)}else{
+        ctx.beginPath();ctx.ellipse(0,0,p.s*.45,p.s,0,0,Math.PI*2);ctx.fill();
+        ctx.strokeStyle='rgba(196,128,125,.6)';ctx.lineWidth=1;ctx.stroke();
+      }
+      ctx.restore();
+    }
+    if(parts.length) requestAnimationFrame(tick); else {running=false;ctx.clearRect(0,0,W,H)}
+  }
+  function burst(x,y,n){ if(reduce) n=Math.min(n,6); for(let i=0;i<n;i++) add(x,y,true) }
+  let ambient=null;
+  function startAmbient(){ if(reduce||ambient) return; ambient=setInterval(()=>{ if(!document.hidden && parts.length<40) add(Math.random()*W,-20,false) }, 1100) }
+
+  /* ---------- envelope ---------- */
+  const intro=document.getElementById('intro'), env=document.getElementById('env'), page=document.getElementById('page');
+  function openLetter(){
+    env.classList.add('opening');
+    setTimeout(()=>{
+      intro.classList.add('gone');
+      page.classList.remove('play'); void page.offsetWidth; page.classList.add('play');
+      burst(W/2, H*.4, 40); startAmbient();
+      scrollTo(0,0);
+    }, reduce?50:1500);
+  }
+  document.getElementById('seal').addEventListener('click', openLetter);
+  document.getElementById('again').addEventListener('click', ()=>{
+    env.classList.remove('opening'); intro.classList.remove('gone');
+  });
+  // atrasos da carta (linha por linha)
+  document.querySelectorAll('.letter p').forEach((p,i)=>p.style.animationDelay=(.4+i*.55)+'s');
+
+  /* ---------- gato ---------- */
+  const cat=document.getElementById('cat'), bubble=document.getElementById('bubble'), petsEl=document.getElementById('pets');
+  const lines=['miau! são pra você','eles me lembraram você','prrr… prrr…','cuidei deles o caminho todo','sem pressa, tá?','mais um carinho?','você é encantadora (ele que mandou dizer)'];
+  let pets=0, bt=null;
+  function petCat(e){
+    pets++; petsEl.textContent='carinhos: '+pets;
+    cat.classList.remove('hop'); void cat.getBoundingClientRect(); cat.classList.add('hop');
+    bubble.textContent = lines[(pets-1)%lines.length];
+    bubble.classList.add('show'); clearTimeout(bt); bt=setTimeout(()=>bubble.classList.remove('show'),2400);
+    const r=cat.getBoundingClientRect();
+    const x = e && e.clientX ? e.clientX : r.left+r.width/2, y = e && e.clientY ? e.clientY : r.top+r.height*.6;
+    burst(x,y,16);
+    meow();
+  }
+  cat.addEventListener('click', petCat);
+  cat.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();petCat()} });
+
+  /* ---------- jardim ---------- */
+  const garden=document.getElementById('garden'), countEl=document.getElementById('count'), gmsg=document.getElementById('gmsg');
+  let planted=0;
+  const msgs={5:'Já parece um canteiro.',10:'Dez lírios. Tudo que é cuidado com calma floresce.',20:'Um jardim inteiro. Igual você faz com os dias de quem te conhece.',30:'Não cabe mais nenhum. Mas eu continuo pensando em você.'};
+  function plant(xPct, hgt, quiet){
+    if(planted>=30) return;
+    planted++;
+    const h = hgt || (70 + Math.random()*90);
+    const s = .45 + Math.random()*.3;
+    const tilt = (Math.random()-.5)*14;
+    const el=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    el.setAttribute('class','sprout'); el.setAttribute('aria-hidden','true');
+    el.setAttribute('width','60'); el.setAttribute('height', String(h+30));
+    el.setAttribute('viewBox', `-30 ${-(h+30)} 60 ${h+30}`);
+    el.style.left = `calc(${xPct}% - 30px)`;
+    el.style.transform = `rotate(${tilt}deg)`;
+    el.style.animationDelay = quiet ? (Math.random()*.4)+'s' : '0s';
+    el.innerHTML = `<path d="M0 0 C${tilt/2} ${-h*.5} ${-tilt/3} ${-h*.8} 0 ${-h}" stroke="#6f7a3c" stroke-width="2.5" fill="none"/>
+      <path d="M0 ${-h*.35} C8 ${-h*.35-10} 18 ${-h*.35-8} 22 ${-h*.35-2} C14 ${-h*.35+4} 6 ${-h*.35+2} 0 ${-h*.35}Z" fill="#7d8a45"/>
+      <use href="#lily" transform="translate(0 ${-h}) scale(${s})"/>`;
+    garden.appendChild(el);
+    countEl.textContent='lírios: '+planted;
+    if(!quiet && msgs[planted]) gmsg.textContent=msgs[planted];
+  }
+  [22,55,80].forEach((x,i)=>plant(x,[110,140,95][i],true));
+  garden.addEventListener('click', e=>{
+    const r=garden.getBoundingClientRect();
+    const x = Math.max(6, Math.min(94, (e.clientX-r.left)/r.width*100));
+    plant(x); chime(); burst(e.clientX, e.clientY, 6);
+  });
+  garden.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();plant(8+Math.random()*84);chime()} });
+
+  /* ---------- som: caixinha de música ---------- */
+  let ac=null, master=null, playing=false, loopT=null;
+  function audio(){
+    if(!ac){ try{ ac=new (window.AudioContext||window.webkitAudioContext)(); master=ac.createGain(); master.gain.value=.22; master.connect(ac.destination);}catch(e){ac=null} }
+    if(ac && ac.state==='suspended') ac.resume();
+    return ac;
+  }
+  function tone(f,t,d,v,type){
+    const o=ac.createOscillator(), g=ac.createGain();
+    o.type=type||'sine'; o.frequency.value=f;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v,t+.01); g.gain.exponentialRampToValueAtTime(.0008,t+d);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+d+.05);
+    const o2=ac.createOscillator(), g2=ac.createGain(); o2.type='sine'; o2.frequency.value=f*2;
+    g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(v*.25,t+.01); g2.gain.exponentialRampToValueAtTime(.0008,t+d*.5);
+    o2.connect(g2); g2.connect(master); o2.start(t); o2.stop(t+d);
+  }
+  const N={C4:261.6,E4:329.6,F4:349.2,G4:392,A4:440,C5:523.3,D5:587.3,E5:659.3,F5:698.5,G5:784,A5:880,B5:987.8,C6:1046.5,D6:1174.7};
+  // valsa original em 3/4
+  const mel=[['E5',1],['G5',1],['C6',1],['B5',1],['G5',1],['E5',1],['F5',1],['A5',1],['D6',1],['C6',1],['A5',1],['F5',1],
+             ['E5',1],['G5',1],['C6',1],['B5',1],['A5',1],['G5',1],['F5',1],['E5',1],['D5',1],['C5',3]];
+  const bass=['C4','G4','F4','F4','C4','G4','G4','C4'];
+  const beat=.42;
+  function playLoop(){
+    if(!playing) return;
+    let t=ac.currentTime+.05, total=0;
+    mel.forEach(([n,d])=>{ tone(N[n],t+total*beat,d*beat*2.4,.5,'triangle'); total+=d; });
+    for(let i=0;i<bass.length;i++) tone(N[bass[i]]/2, t+i*3*beat, 3*beat*1.4, .35, 'sine');
+    loopT=setTimeout(playLoop, (total*beat)*1000);
+  }
+  const radio=document.getElementById('radio'), rl=document.getElementById('radioLabel');
+  function setRadio(on){
+    if(on && !audio()) return;
+    playing=on; radio.classList.toggle('on',on); radio.setAttribute('aria-pressed',on);
+    rl.textContent = on ? 'tocando' : 'rádio';
+    clearTimeout(loopT); if(on) playLoop();
+  }
+  radio.addEventListener('click', ()=>setRadio(!playing));
+  function chime(){ if(!audio()) return; const notes=[N.C6,N.E5,N.G5,N.A5,N.D6]; tone(notes[Math.floor(Math.random()*5)], ac.currentTime, .9, .35, 'triangle'); }
+  function meow(){
+    if(!audio()) return;
+    const t=ac.currentTime, o=ac.createOscillator(), g=ac.createGain(), f=ac.createBiquadFilter();
+    o.type='sawtooth'; f.type='bandpass'; f.frequency.value=1100; f.Q.value=3;
+    o.frequency.setValueAtTime(520,t); o.frequency.linearRampToValueAtTime(820,t+.12); o.frequency.linearRampToValueAtTime(430,t+.42);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.5,t+.05); g.gain.exponentialRampToValueAtTime(.001,t+.48);
+    o.connect(f); f.connect(g); g.connect(master); o.start(t); o.stop(t+.5);
+  }
+
+  /* ---------- bilhetinhos ---------- */
+  document.querySelectorAll('.note').forEach(n=>n.addEventListener('click',()=>{
+    n.classList.toggle('flip');
+    if(n.classList.contains('flip')){ const r=n.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height/2, 8); chime(); }
+  }));
+})();
+</script>
+</body>
+</html>
