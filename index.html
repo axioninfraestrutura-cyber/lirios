@@ -160,24 +160,20 @@ h1 .mono{font-family:var(--f-mono);font-style:normal;font-size:.8em;background:#
   position:absolute;top:-14px;left:16px;background:var(--mustard);color:var(--ink);
   font-family:var(--f-type);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1.5px solid var(--ink);
 }
-.cat-wrap{position:relative;display:flex;justify-content:center}
-.cat{width:min(300px,100%);height:auto;cursor:pointer;touch-action:manipulation;overflow:visible}
-.cat:focus-visible{outline:2px dashed var(--ink);outline-offset:4px}
-.cat .tail{transform-origin:212px 300px;animation:tail 3.2s ease-in-out infinite}
-@keyframes tail{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
-.cat .eyes{transform-origin:150px 126px;animation:blink 4.6s infinite}
-@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
-.cat .ear-l{transform-origin:110px 90px;animation:earL 7s infinite}
-@keyframes earL{0%,88%,100%{transform:rotate(0)}91%{transform:rotate(-10deg)}94%{transform:rotate(0)}}
-.cat.hop{animation:hop .55s cubic-bezier(.3,1.6,.5,1)}
-@keyframes hop{0%{transform:translateY(0)}35%{transform:translateY(-14px) rotate(-2deg)}100%{transform:translateY(0)}}
-.bubble{
-  position:absolute;top:2px;right:2%;max-width:62%;background:var(--paper);border:2px solid var(--ink);border-radius:18px;
-  padding:8px 12px;font-family:var(--f-hand);font-size:12.5px;line-height:1.6;color:var(--ink);
-  transform:scale(.6);opacity:0;transform-origin:bottom left;transition:transform .35s cubic-bezier(.3,1.6,.5,1), opacity .25s;pointer-events:none;
+.stack{position:relative;height:clamp(360px,108vw,450px);cursor:pointer;touch-action:manipulation;margin-top:6px}
+.stack:focus-visible{outline:2px dashed var(--ink);outline-offset:4px}
+.pola{
+  position:absolute;left:50%;top:8px;width:min(300px,84%);margin-left:calc(min(300px,84%) / -2);
+  background:#fffaf1;padding:10px 10px 0;box-shadow:0 10px 24px rgba(58,35,22,.28);border:1px solid rgba(110,67,41,.15);
+  transition:transform .45s cubic-bezier(.4,.2,.2,1), opacity .45s;
 }
-.bubble::after{content:"";position:absolute;left:14px;bottom:-11px;width:16px;height:16px;background:var(--paper);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) skew(10deg,10deg)}
-.bubble.show{transform:scale(1);opacity:1}
+.pola img{display:block;width:100%;aspect-ratio:1/1.05;object-fit:cover;filter:sepia(.18) saturate(.95) contrast(1.02)}
+.pola figcaption{font-family:var(--f-hand);font-size:14px;line-height:1.4;color:var(--ink);text-align:center;padding:12px 6px 14px}
+.pola.toss{transform:translateX(120%) rotate(18deg)!important;opacity:0}
+.kiss{margin:0;position:relative;background:#fffaf1;padding:10px 10px 0;box-shadow:0 10px 24px rgba(58,35,22,.25);transform:rotate(1.2deg);border:1px solid rgba(110,67,41,.15)}
+.kiss img{display:block;width:100%;height:auto;aspect-ratio:350/197;object-fit:cover}
+.kiss figcaption{font-family:var(--f-hand);font-size:14px;text-align:center;padding:12px 6px 14px}
+.kiss .tape{position:absolute;top:-12px;left:50%;width:96px;height:24px;margin-left:-48px;background:rgba(201,154,58,.55);transform:rotate(-3deg)}
 .cat-caption{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:13.5px;margin-top:6px;border-top:1px dashed rgba(110,67,41,.4);padding-top:10px}
 .cat-caption i{color:var(--cocoa)}
 .pets{font-family:var(--f-type);font-size:12px;letter-spacing:.06em;font-variant-numeric:tabular-nums}
@@ -255,7 +251,7 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
   <div class="intro-label">Correio Nostálgico · nº 001</div>
   <div class="envelope" id="env">
     <div class="env-back"></div>
-    <div class="env-letter">abre devagar…</div>
+    <div class="env-letter">um lembrete…</div>
     <div class="env-front"></div>
     <div class="env-flap"></div>
     <div class="postmark">MANAUS<br>· 2026 ·<br>sem pressa</div>
@@ -274,18 +270,21 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
 <main id="page">
 
   <header class="hero">
-    <span class="kicker">Correio Nostálgico · entrega nº 001</span>
+    <span class="kicker">Correio Nostálgico · lembrete nº 001</span>
     <h1>Para <span class="mono">G</span><em>abriela</em></h1>
-    <p>um gato, alguns lírios e uma carta. tudo sem pressa.</p>
+    <p>um lembrete rápido, entregue por gatos.</p>
     <div class="ribbon gingham" aria-hidden="true"></div>
   </header>
 
   <!-- GATO -->
   <section class="cat-card" aria-label="Um gato com lírios">
     <span class="tag">entrega especial</span>
-    <div class="cat-wrap">
-      <div class="bubble" id="bubble">miau! são pra você</div>
-      <svg class="cat" id="cat" viewBox="0 0 300 350" role="button" tabindex="0" aria-label="Gato segurando lírios. Toque para fazer carinho.">
+    <div class="stack" id="stack" role="button" tabindex="0" aria-label="Fotos de gatos com flores. Toque para ver a próxima.">
+      <figure class="pola" style="transform:rotate(4deg)"><img src="img/gato-rosa.png" alt="Gato laranja segurando uma rosa"><figcaption>é sério: você é incrível</figcaption></figure>
+      <figure class="pola" style="transform:rotate(-5deg)"><img src="img/gato-rosa-cinza.png" alt="Gatinho cinza oferecendo uma rosa"><figcaption>trouxe uma flor, só porque sim</figcaption></figure>
+      <figure class="pola" style="transform:rotate(-1.5deg)"><img src="img/gato-tulipas.png" alt="Gatinho laranja segurando tulipas cor-de-rosa"><figcaption>entrega pra Gabriela</figcaption></figure>
+    </div>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <defs>
           <path id="petal" d="M0 0 C11 -8 12 -25 0 -41 C-12 -25 -11 -8 0 0Z"/>
           <g id="lily">
@@ -314,77 +313,19 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
           </pattern>
         </defs>
 
-        <!-- cauda -->
-        <path class="tail" d="M206 300 C272 304 292 240 266 204 C258 193 244 198 250 211 C268 244 258 286 204 284 Z" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
-        <!-- corpo -->
-        <ellipse cx="150" cy="262" rx="82" ry="78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
-        <path d="M80 240 q14 4 18 16 M76 270 q14 2 20 12 M220 240 q-14 4 -18 16 M224 270 q-14 2 -20 12" stroke="#b06d3c" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <ellipse cx="150" cy="278" rx="50" ry="58" fill="#f3dcc0"/>
-        <ellipse cx="112" cy="332" rx="24" ry="13" fill="#f3dcc0" stroke="#8a5530" stroke-width="2.5"/>
-        <ellipse cx="188" cy="332" rx="24" ry="13" fill="#f3dcc0" stroke="#8a5530" stroke-width="2.5"/>
-
-        <!-- orelhas -->
-        <g class="ear-l">
-          <polygon points="88,102 80,36 130,78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5" stroke-linejoin="round"/>
-          <polygon points="95,92 88,52 119,79" fill="#e6a7a1"/>
-        </g>
-        <polygon points="212,102 220,36 170,78" fill="#d68e55" stroke="#8a5530" stroke-width="2.5" stroke-linejoin="round"/>
-        <polygon points="205,92 212,52 181,79" fill="#e6a7a1"/>
-        <!-- cabeça -->
-        <ellipse cx="150" cy="128" rx="74" ry="62" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
-        <path d="M150 70 v15 M136 73 l3 13 M164 73 l-3 13" stroke="#b06d3c" stroke-width="5" stroke-linecap="round"/>
-        <ellipse cx="150" cy="152" rx="34" ry="24" fill="#f3dcc0"/>
-        <g class="eyes">
-          <ellipse cx="122" cy="126" rx="8.5" ry="11.5" fill="#2e1b10"/>
-          <ellipse cx="178" cy="126" rx="8.5" ry="11.5" fill="#2e1b10"/>
-          <circle cx="125" cy="121" r="3" fill="#fff"/><circle cx="181" cy="121" r="3" fill="#fff"/>
-        </g>
-        <ellipse cx="104" cy="148" rx="11" ry="6.5" fill="#c4807d" opacity=".5"/>
-        <ellipse cx="196" cy="148" rx="11" ry="6.5" fill="#c4807d" opacity=".5"/>
-        <path d="M144 142 h12 l-6 7 z" fill="#c4807d" stroke="#8a4744" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M150 149 q-6 9 -14 4 M150 149 q6 9 14 4" stroke="#5a3520" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <g stroke="#5a3520" stroke-width="1.4" stroke-linecap="round" opacity=".7">
-          <line x1="112" y1="150" x2="68" y2="142"/><line x1="112" y1="156" x2="70" y2="160"/>
-          <line x1="188" y1="150" x2="232" y2="142"/><line x1="188" y1="156" x2="230" y2="160"/>
-        </g>
-
-        <!-- buquê -->
-        <g stroke="#6f7a3c" stroke-width="3" stroke-linecap="round">
-          <line x1="150" y1="300" x2="120" y2="215"/><line x1="150" y1="300" x2="150" y2="200"/><line x1="150" y1="300" x2="180" y2="215"/>
-          <line x1="150" y1="300" x2="134" y2="242"/><line x1="150" y1="300" x2="166" y2="242"/>
-        </g>
-        <path d="M0 0 C10 -11 30 -11 42 0 C30 11 10 11 0 0Z" fill="#7d8a45" stroke="#56602c" stroke-width="1.5" transform="translate(132 252) rotate(-150)"/>
-        <path d="M0 0 C10 -11 30 -11 42 0 C30 11 10 11 0 0Z" fill="#7d8a45" stroke="#56602c" stroke-width="1.5" transform="translate(168 252) rotate(-30)"/>
-        <polygon points="110,246 190,246 160,322 140,322" fill="url(#gg)" stroke="#6e4329" stroke-width="2.5" stroke-linejoin="round"/>
-        <use href="#lily" transform="translate(120 215) scale(.7) rotate(-12)"/>
-        <use href="#lily" transform="translate(180 215) scale(.7) rotate(14)"/>
-        <use href="#lily" transform="translate(150 200) scale(.82)"/>
-        <use href="#lily" transform="translate(134 242) scale(.56) rotate(20)"/>
-        <use href="#lily" transform="translate(166 242) scale(.56) rotate(-20)"/>
-        <!-- patinhas -->
-        <ellipse cx="121" cy="272" rx="16" ry="12.5" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
-        <ellipse cx="179" cy="272" rx="16" ry="12.5" fill="#d68e55" stroke="#8a5530" stroke-width="2.5"/>
-        <path d="M116 266 v8 M123 265 v8 M174 266 v8 M181 265 v8" stroke="#8a5530" stroke-width="1.6" stroke-linecap="round"/>
-        <!-- laço -->
-        <g transform="translate(150 296)">
-          <path d="M0 0 L-20 -10 L-18 10 Z M0 0 L20 -10 L18 10 Z" fill="#c4807d" stroke="#8a4744" stroke-width="1.8" stroke-linejoin="round"/>
-          <path d="M-3 2 L-10 22 M3 2 L10 22" stroke="#c4807d" stroke-width="4" stroke-linecap="round"/>
-          <circle r="5" fill="#b56e6b" stroke="#8a4744" stroke-width="1.8"/>
-        </g>
       </svg>
-    </div>
-    <div class="cat-caption"><i>toque no gatinho</i><span class="pets" id="pets">carinhos: 0</span></div>
+    <div class="cat-caption"><i>toque nas fotos</i><span class="pets" id="pets">carinhos: 0</span></div>
   </section>
 
   <!-- CARTA -->
-  <article class="letter" aria-label="Carta">
-    <span class="date">Manaus, nov. 2026</span>
+  <article class="letter" aria-label="Lembrete">
+    <span class="date">lembrete nº 001</span>
     <p class="open">Gabriela,</p>
     <p class="lead">Você me lembra lírios…<br>Na cor, na calma, no jeito de florir sem pressa.</p>
-    <p>Faz pouco tempo que eu te conheço, mas tem gente que chega assim, sem fazer barulho, e de repente os dias ficam com cara de filme antigo: luz amarelada, música de rádio tocando baixinho.</p>
-    <p>Gosto do jeito que você enxerga beleza no que o tempo quase esqueceu. Talvez por isso eu tenha pensado em você quando vi um lírio, e quis te entregar alguns. Mandei por um gatinho, que é mais corajoso do que eu.</p>
-    <p>Sem pressa nenhuma. Só queria que você soubesse que eu te acho encantadora.</p>
-    <p class="sign">com carinho, de quem gosta<br>de te ver florir ♡</p>
+    <p>Isso aqui é só um lembrete, caso o dia esteja corrido: você é incrível.</p>
+    <p>O olho pra cor, o garimpo de peça que ninguém tinha notado, o capricho em cada coisa que você faz. Dá pra ver de longe.</p>
+    <p>Então, se hoje ninguém te disse isso, fica registrado aqui. Pode voltar neste link sempre que precisar lembrar.</p>
+    <p class="sign">assinado: os gatos<br>(e eu também)</p>
     <svg class="pressed" viewBox="-60 -60 120 160" aria-hidden="true">
       <path d="M0 10 C4 50 -4 80 2 98" stroke="#6f7a3c" stroke-width="3" fill="none" opacity=".75"/>
       <g opacity=".85"><use href="#lily" transform="scale(1.1)"/></g>
@@ -393,12 +334,12 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
 
   <!-- BILHETINHOS -->
   <section aria-label="Bilhetinhos">
-    <h2>Bilhetinhos</h2>
+    <h2>Coisas que são verdade</h2>
     <div class="notes">
-      <button class="note" aria-label="Bilhete: a cor"><span class="note-in"><span class="note-face dots"><span class="note-tag">a cor</span></span><span class="note-face back">Lírio tem essa cor de quem não precisa chamar atenção pra ser notada.<small>bilhete 1</small></span></span></button>
-      <button class="note" aria-label="Bilhete: a calma"><span class="note-in"><span class="note-face check"><span class="note-tag">a calma</span></span><span class="note-face back">Conversar com você tem o ritmo de uma tarde de domingo com o rádio ligado.<small>bilhete 2</small></span></span></button>
-      <button class="note" aria-label="Bilhete: sem pressa"><span class="note-in"><span class="note-face solid-rose"><svg width="64" height="64" viewBox="-44 -44 88 88" aria-hidden="true"><use href="#lily"/></svg></span><span class="note-face back">Lírios abrem no tempo deles. Gosto de te conhecer assim, um pouquinho por dia.<small>bilhete 3</small></span></span></button>
-      <button class="note" aria-label="Bilhete: atemporal"><span class="note-in"><span class="note-face dots-light"><span class="note-tag">atemporal</span></span><span class="note-face back">Você tem olho pro que é bonito e não sai de moda. Acho que peguei um pouco disso.<small>bilhete 4</small></span></span></button>
+      <button class="note" aria-label="Bilhete: a cor"><span class="note-in"><span class="note-face dots"><span class="note-tag">a cor</span></span><span class="note-face back">Você tem um olho pra cor que pouca gente tem.<small>verdade 1</small></span></span></button>
+      <button class="note" aria-label="Bilhete: a calma"><span class="note-in"><span class="note-face check"><span class="note-tag">a calma</span></span><span class="note-face back">Sua calma deixa qualquer conversa mais leve.<small>verdade 2</small></span></span></button>
+      <button class="note" aria-label="Bilhete: sem pressa"><span class="note-in"><span class="note-face solid-rose"><svg width="64" height="64" viewBox="-44 -44 88 88" aria-hidden="true"><use href="#lily"/></svg></span><span class="note-face back">Você faz as coisas no seu tempo, e elas ficam bonitas.<small>verdade 3</small></span></span></button>
+      <button class="note" aria-label="Bilhete: o brechó"><span class="note-in"><span class="note-face dots-light"><span class="note-tag">o brechó</span></span><span class="note-face back">Seu brechó tem a sua cara: atemporal e cheio de personalidade.<small>verdade 4</small></span></span></button>
     </div>
     <p class="notes-hint">toque para virar cada um</p>
   </section>
@@ -415,6 +356,13 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
     </div>
     <p class="garden-msg" id="gmsg">Cada toque, uma flor nova.</p>
   </section>
+
+  <!-- BEIJINHO -->
+  <figure class="kiss">
+    <span class="tape" aria-hidden="true"></span>
+    <img src="img/beijinho.gif" alt="Gatinho chegando pertinho da câmera para dar um beijinho" loading="lazy">
+    <figcaption>e um beijinho de gato pra fechar</figcaption>
+  </figure>
 
   <footer>
     <span>feito sem pressa · para Gabriela</span>
@@ -482,26 +430,28 @@ footer{text-align:center;font-family:var(--f-type);font-size:12px;letter-spacing
   document.querySelectorAll('.letter p').forEach((p,i)=>p.style.animationDelay=(.4+i*.55)+'s');
 
   /* ---------- gato ---------- */
-  const cat=document.getElementById('cat'), bubble=document.getElementById('bubble'), petsEl=document.getElementById('pets');
-  const lines=['miau! são pra você','eles me lembraram você','prrr… prrr…','cuidei deles o caminho todo','sem pressa, tá?','mais um carinho?','você é encantadora (ele que mandou dizer)'];
-  let pets=0, bt=null;
+  const stack=document.getElementById('stack'), petsEl=document.getElementById('pets');
+  const tilts=['rotate(-1.5deg)','rotate(-5deg)','rotate(4deg)'];
+  let pets=0, busy=false;
+  function layout(){ [...stack.children].forEach((p,i,a)=>{ p.style.zIndex=i; p.style.transform=tilts[a.length-1-i]; }); }
+  layout();
   function petCat(e){
+    if(busy) return; busy=true;
     pets++; petsEl.textContent='carinhos: '+pets;
-    cat.classList.remove('hop'); void cat.getBoundingClientRect(); cat.classList.add('hop');
-    bubble.textContent = lines[(pets-1)%lines.length];
-    bubble.classList.add('show'); clearTimeout(bt); bt=setTimeout(()=>bubble.classList.remove('show'),2400);
-    const r=cat.getBoundingClientRect();
-    const x = e && e.clientX ? e.clientX : r.left+r.width/2, y = e && e.clientY ? e.clientY : r.top+r.height*.6;
-    burst(x,y,16);
-    meow();
+    const top=stack.lastElementChild;
+    const r=stack.getBoundingClientRect();
+    const x = e && e.clientX ? e.clientX : r.left+r.width/2, y = e && e.clientY ? e.clientY : r.top+r.height*.5;
+    burst(x,y,16); meow();
+    top.classList.add('toss');
+    setTimeout(()=>{ stack.prepend(top); top.classList.remove('toss'); layout(); busy=false; }, reduce?20:450);
   }
-  cat.addEventListener('click', petCat);
-  cat.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();petCat()} });
+  stack.addEventListener('click', petCat);
+  stack.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();petCat()} });
 
   /* ---------- jardim ---------- */
   const garden=document.getElementById('garden'), countEl=document.getElementById('count'), gmsg=document.getElementById('gmsg');
   let planted=0;
-  const msgs={5:'Já parece um canteiro.',10:'Dez lírios. Tudo que é cuidado com calma floresce.',20:'Um jardim inteiro. Igual você faz com os dias de quem te conhece.',30:'Não cabe mais nenhum. Mas eu continuo pensando em você.'};
+  const msgs={5:'Já parece um canteiro.',10:'Dez lírios. Você leva jeito pra fazer as coisas florescerem.',20:'Um jardim inteiro. Igual o que você faz com o brechó.',30:'Não cabe mais nenhum. Mas cabe mais um lembrete: você é incrível.'};
   function plant(xPct, hgt, quiet){
     if(planted>=30) return;
     planted++;
